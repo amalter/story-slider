@@ -51,7 +51,7 @@ registerBlockType( 'cgb/block-story-slider', {
 		// Creates a <p class='wp-block-cgb-block-story-slider'></p>.
 		return (
 			<div className={ props.className }>
-				<p>Slider Parent</p>
+				<p>Story Slider Block</p>
 				<InnerBlocks
 					allowedBlocks={ ALLOWED_BLOCKS }
 				/>
@@ -73,8 +73,12 @@ registerBlockType( 'cgb/block-story-slider', {
 	save: ( props ) => {
 		return (
 			<div className={ props.className }>
-				<p>Slider Block</p>
-				<InnerBlocks.Content />
+				<div className="story-slider-nav">
+						Slider Navigation
+				</div>
+				<div className="story-slider">
+					<InnerBlocks.Content />
+				</div>
 			</div>
 		);
 	},

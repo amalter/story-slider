@@ -9,9 +9,11 @@
 import './editor.scss';
 import './style.scss';
 import { InnerBlocks } from '@wordpress/block-editor';
+const { RichText } = wp.editor;
 
 const { __ } = wp.i18n; // Import __() from wp.i18n
 const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks
+
 
 /**
  * Register: aa Gutenberg Block.
@@ -32,6 +34,13 @@ registerBlockType( 'cgb/block-story-slider-slide', {
 	icon: 'welcome-add-page', // Block icon from Dashicons → https://developer.wordpress.org/resource/dashicons/.
 	parent: [ 'cgb/block-story-slider' ],
 	category: 'common', // Block category — Group blocks together based on common traits E.g. common, formatting, layout widgets, embed.
+	attributes: {
+		slideNavTitle: {
+			type: 'string',
+			source: 'html',
+			selector: '.slide-nav-title'
+		}
+	},
 	keywords: [
 		__( 'Slide' ),
 		__( 'Add slide' ),
@@ -49,10 +58,25 @@ registerBlockType( 'cgb/block-story-slider-slide', {
 	 * @returns {Mixed} JSX Component.
 	 */
 	edit: ( props ) => {
-		// Creates a <p class='wp-block-cgb-block-story-slider'></p>.
+		console.info(props);
+		const { 
+			attributes: { slideNavTitle }, 
+			setAttributes 
+		} = props;
+
+		const onChangeNavTitle = newNavTitle => {
+			setAttributes({ slideNavTitle: newNavTitle});
+		};
 		return (
 			<div className={ props.className }>
-				<p> Slide </p>
+				<p> Slide Navigation Title: </p>
+				
+				<div class="slide-nav-title">
+					<RichText 
+						value={slideNavTitle}
+						onChange={onChangeNavTitle}
+					/>
+				</div>
 				<InnerBlocks />
 			</div>
 		);
@@ -70,10 +94,15 @@ registerBlockType( 'cgb/block-story-slider-slide', {
 	 * @returns {Mixed} JSX Frontend HTML.
 	 */
 	save: ( props ) => {
+		const {
+			attributes: { slideNavTitle }
+		} = props;
+
 		return (
-			<div className={ props.className }>
-				<p>Slide</p>
-				<InnerBlocks.Content />
+			<div className="story-slider_slide">
+				
+				<p className="slide-nav-title"><RichText.Content value={slideNavTitle} /></p>
+					<InnerBlocks.Content />
 			</div>
 		);
 	},
