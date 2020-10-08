@@ -75,6 +75,7 @@ registerBlockType( 'cgb/block-story-slider-slide', {
 					<RichText 
 						value={slideNavTitle}
 						onChange={onChangeNavTitle}
+						placeholder="Add slide navigation title"
 					/>
 				</div>
 				<InnerBlocks />
