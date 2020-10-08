@@ -15,6 +15,9 @@ import { InnerBlocks } from '@wordpress/block-editor';
 const { __ } = wp.i18n; // Import __() from wp.i18n
 const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks
 const ALLOWED_BLOCKS = [ 'cgb/block-story-slider-slide' ];
+const TEMPLATE = [
+	[ 'cgb/block-story-slider-slide', { placeholder: 'Slide' } ],
+];
 
 /**
  * Register: aa Gutenberg Block.
@@ -56,6 +59,7 @@ registerBlockType( 'cgb/block-story-slider', {
 				<p>Story Slider Block</p>
 				<InnerBlocks
 					allowedBlocks={ ALLOWED_BLOCKS }
+					template={ TEMPLATE }
 					renderAppender={ () => (
 						<InnerBlocks.DefaultBlockAppender />
 					) }

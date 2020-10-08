@@ -69,9 +69,9 @@ registerBlockType( 'cgb/block-story-slider-slide', {
 		};
 		return (
 			<div className={ props.className }>
-				<p> Slide Navigation Title: </p>
-				
+				<h2>Slide</h2>
 				<div class="slide-nav-title">
+				<label>Slide Navigation Title: </label>
 					<RichText 
 						value={slideNavTitle}
 						onChange={onChangeNavTitle}
