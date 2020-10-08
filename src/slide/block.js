@@ -9,7 +9,7 @@
 import './editor.scss';
 import './style.scss';
 import { InnerBlocks } from '@wordpress/block-editor';
-const { RichText } = wp.editor;
+const { RichText } = wp.blockEditor;
 
 const { __ } = wp.i18n; // Import __() from wp.i18n
 const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks
@@ -97,7 +97,7 @@ registerBlockType( 'cgb/block-story-slider-slide', {
 		const {
 			attributes: { slideNavTitle }
 		} = props;
-
+		console.info(props);
 		return (
 			<div className="story-slider_slide">
 				
