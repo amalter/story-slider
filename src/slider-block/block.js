@@ -10,9 +10,12 @@ import './editor.scss';
 import './style.scss';
 import { InnerBlocks } from '@wordpress/block-editor';
 
+
+
 const { __ } = wp.i18n; // Import __() from wp.i18n
 const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks
 const ALLOWED_BLOCKS = [ 'cgb/block-story-slider-slide' ];
+
 /**
  * Register: aa Gutenberg Block.
  *
@@ -48,12 +51,14 @@ registerBlockType( 'cgb/block-story-slider', {
 	 * @returns {Mixed} JSX Component.
 	 */
 	edit: ( props ) => {
-		// Creates a <p class='wp-block-cgb-block-story-slider'></p>.
 		return (
 			<div className={ props.className }>
 				<p>Story Slider Block</p>
 				<InnerBlocks
 					allowedBlocks={ ALLOWED_BLOCKS }
+					renderAppender={ () => (
+						<InnerBlocks.DefaultBlockAppender />
+					) }
 				/>
 			</div>
 		);
