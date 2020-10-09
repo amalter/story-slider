@@ -10,7 +10,7 @@ import './editor.scss';
 import './style.scss';
 import { InnerBlocks } from '@wordpress/block-editor';
 import { useSelect } from '@wordpress/data';
-
+const { RichText } = wp.blockEditor;
 
 
 const { __ } = wp.i18n; // Import __() from wp.i18n
@@ -32,6 +32,10 @@ const TEMPLATE = [
  * @param  {Object}   settings Block settings.
  * @return {?WPBlock}          The block, if it has been successfully
  *                             registered; otherwise `undefined`.
+ */
+
+ /**
+ * Registering Parent for the Story Slider block
  */
 registerBlockType( 'cgb/block-story-slider', {
 	// Block name. Block names must be string that contains a namespace prefix. Example: my-plugin/my-custom-block.
@@ -121,6 +125,91 @@ registerBlockType( 'cgb/block-story-slider', {
 				<div className="story-slider">
 					<InnerBlocks.Content />
 				</div>
+			</div>
+		);
+	},
+} ); //end parent Slider Block
+
+/**
+ * Registering Child Innerblock for the Story Slider block
+ */
+registerBlockType( 'cgb/block-story-slider-slide', {
+	// Block name. Block names must be string that contains a namespace prefix. Example: my-plugin/my-custom-block.
+	title: __( 'Story Slider Slide' ), // Block title.
+	icon: 'welcome-add-page', // Block icon from Dashicons → https://developer.wordpress.org/resource/dashicons/.
+	parent: [ 'cgb/block-story-slider' ],
+	category: 'common', // Block category — Group blocks together based on common traits E.g. common, formatting, layout widgets, embed.
+	attributes: {
+		slideNavTitle: {
+			type: 'string',
+			source: 'html',
+			selector: '.slide-nav-title'
+		}
+	},
+	keywords: [
+		__( 'Slide' ),
+		__( 'Add slide' ),
+	],
+
+	/**
+	 * The edit function describes the structure of your block in the context of the editor.
+	 * This represents what the editor will render when the block is used.
+	 *
+	 * The "edit" property must be a valid function.
+	 *
+	 * @link https://wordpress.org/gutenberg/handbook/block-api/block-edit-save/
+	 *
+	 * @param {Object} props Props.
+	 * @returns {Mixed} JSX Component.
+	 */
+	edit: ( props ) => {
+		//console.info(props);
+		const { 
+			attributes: { slideNavTitle }, 
+			setAttributes 
+		} = props;
+
+		const onChangeNavTitle = newNavTitle => {
+			setAttributes({ slideNavTitle: newNavTitle});
+		};
+		return (
+			<div className={ props.className }>
+				<h2>Slide</h2>
+				<div class="slide-nav-title">
+				<label class="slide-nav-title_label ">Slide Navigation Title: </label>
+					<RichText 
+						className={ "slide-nav-title_input" }
+						value={slideNavTitle}
+						onChange={onChangeNavTitle}
+						placeholder="Add slide navigation title"
+					/>
+				</div>
+				<InnerBlocks />
+			</div>
+		);
+	},
+
+	/**
+	 * The save function defines the way in which the different attributes should be combined
+	 * into the final markup, which is then serialized by Gutenberg into post_content.
+	 *
+	 * The "save" property must be specified and must be a valid function.
+	 *
+	 * @link https://wordpress.org/gutenberg/handbook/block-api/block-edit-save/
+	 *
+	 * @param {Object} props Props.
+	 * @returns {Mixed} JSX Frontend HTML.
+	 */
+	save: ( props ) => {
+		const {
+			attributes: { slideNavTitle }
+		} = props;
+		//console.info(props);
+		return (
+			<div className="story-slider_slide">
+				
+				<p className="slide-nav-title"><RichText.Content value={slideNavTitle} /></p>
+					<InnerBlocks.Content />
 			</div>
 		);
 	},

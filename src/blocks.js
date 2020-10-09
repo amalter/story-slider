@@ -9,5 +9,4 @@
  * Webpack is compiling as the input file.
  */
 
-import './slider-block/block.js';
-import './slide/block.js';
+import './block/block.js';
