@@ -38,6 +38,13 @@ registerBlockType( 'cgb/block-story-slider', {
 	title: __( 'Story Slider' ), // Block title.
 	icon: 'slides', // Block icon from Dashicons → https://developer.wordpress.org/resource/dashicons/.
 	category: 'layout', // Block category — Group blocks together based on common traits E.g. common, formatting, layout widgets, embed.
+	attributes:{
+		slideNavTitles: {
+			type: 'array',
+			selector: '.slide-nav-title_input',
+			default: []
+		}
+	},
 	keywords: [
 		__( 'Story Slider' ),
 		__( 'Carousel' ),
@@ -57,17 +64,28 @@ registerBlockType( 'cgb/block-story-slider', {
 	
 	edit: ( props ) => {
 		//console.info(wp.data.select( 'core/block-editor' ).getBlocks()[0].innerBlocks[0].attributes.slideNavTitle);
-	
-		const parentBlockID = props.clientId;
-		const parentIndex = wp.data.select( 'core/block-editor' ).getBlockIndex(parentBlockID);
-		const { innerBlockCount } = useSelect(select => ({
-			innerBlockCount: select('core/block-editor').getBlockCount(parentBlockID)
-		}));
-		let navItem = [];
-		for (let block = 0; block < innerBlockCount; block++) {
-			navItem = navItem + ', ' + wp.data.select( 'core/block-editor' ).getBlocks()[parentIndex].innerBlocks[block].attributes.slideNavTitle;
+		const { 
+			attributes: { slideNavTitles }, 
+			setAttributes 
+		} = props;
+
+		const buildNavArray = () =>{
+			const parentBlockID = props.clientId;
+			const parentIndex = wp.data.select( 'core/block-editor' ).getBlockIndex(parentBlockID);
+			const { innerBlockCount } = useSelect(select => ({
+				innerBlockCount: select('core/block-editor').getBlockCount(parentBlockID)
+			}));
+			let navItems = [];
+			
+			for (let block = 0; block < innerBlockCount; block++) {
+				let navItem = wp.data.select( 'core/block-editor' ).getBlocks()[parentIndex].innerBlocks[block].attributes.slideNavTitle;
+				navItems.push(navItem);
+			}
+			//wp.data.dispatch( 'core/block-editor' ).updateBlockAttributes( parentBlockID, { slideNavTitles : navItems } );
+			return navItems;
 		}
-		console.log(parentBlockID + ' : ' + navItem);
+		console.info(props);
+		console.info(buildNavArray());
 
 		return (
 			<div className={ props.className }>
