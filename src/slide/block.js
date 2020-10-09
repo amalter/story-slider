@@ -58,7 +58,7 @@ registerBlockType( 'cgb/block-story-slider-slide', {
 	 * @returns {Mixed} JSX Component.
 	 */
 	edit: ( props ) => {
-		console.info(props);
+		//console.info(props);
 		const { 
 			attributes: { slideNavTitle }, 
 			setAttributes 
@@ -71,8 +71,9 @@ registerBlockType( 'cgb/block-story-slider-slide', {
 			<div className={ props.className }>
 				<h2>Slide</h2>
 				<div class="slide-nav-title">
-				<label>Slide Navigation Title: </label>
+				<label class="slide-nav-title_label ">Slide Navigation Title: </label>
 					<RichText 
+						className={ "slide-nav-title_input" }
 						value={slideNavTitle}
 						onChange={onChangeNavTitle}
 						placeholder="Add slide navigation title"
@@ -98,7 +99,7 @@ registerBlockType( 'cgb/block-story-slider-slide', {
 		const {
 			attributes: { slideNavTitle }
 		} = props;
-		console.info(props);
+		//console.info(props);
 		return (
 			<div className="story-slider_slide">
 				

@@ -9,6 +9,7 @@
 import './editor.scss';
 import './style.scss';
 import { InnerBlocks } from '@wordpress/block-editor';
+import { useSelect } from '@wordpress/data';
 
 
 
@@ -53,7 +54,21 @@ registerBlockType( 'cgb/block-story-slider', {
 	 * @param {Object} props Props.
 	 * @returns {Mixed} JSX Component.
 	 */
+	
 	edit: ( props ) => {
+		//console.info(wp.data.select( 'core/block-editor' ).getBlocks()[0].innerBlocks[0].attributes.slideNavTitle);
+	
+		const parentBlockID = props.clientId;
+		const parentIndex = wp.data.select( 'core/block-editor' ).getBlockIndex(parentBlockID);
+		const { innerBlockCount } = useSelect(select => ({
+			innerBlockCount: select('core/block-editor').getBlockCount(parentBlockID)
+		}));
+		let navItem = [];
+		for (let block = 0; block < innerBlockCount; block++) {
+			navItem = navItem + ', ' + wp.data.select( 'core/block-editor' ).getBlocks()[parentIndex].innerBlocks[block].attributes.slideNavTitle;
+		}
+		console.log(parentBlockID + ' : ' + navItem);
+
 		return (
 			<div className={ props.className }>
 				<p>Story Slider Block</p>
