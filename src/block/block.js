@@ -45,7 +45,6 @@ registerBlockType( 'cgb/block-story-slider', {
 	attributes:{
 		slideNavTitles: {
 			type: 'array',
-			selector: '.slide-nav-title_input',
 			default: []
 		}
 	},
@@ -85,10 +84,16 @@ registerBlockType( 'cgb/block-story-slider', {
 				let navItem = wp.data.select( 'core/block-editor' ).getBlocks()[parentIndex].innerBlocks[block].attributes.slideNavTitle;
 				navItems.push(navItem);
 			}
-			//wp.data.dispatch( 'core/block-editor' ).updateBlockAttributes( parentBlockID, { slideNavTitles : navItems } );
-			return navItems;
+			if (hasSelectedInnerBlock(props)) {
+				wp.data.dispatch( 'core/block-editor' ).updateBlockAttributes( [parentBlockID], { slideNavTitles : navItems } );
+			}
+			//let selectedBlockID = wp.data.select('core/block-editor').getSelectedBlock(parentBlockID);
+			//
+			//return navItems;
 		}
 		console.info(props);
+
+
 		console.info(buildNavArray());
 
 		return (
@@ -214,3 +219,16 @@ registerBlockType( 'cgb/block-story-slider-slide', {
 		);
 	},
 } );
+
+//function to chek if innerblocks have been changed
+function hasSelectedInnerBlock(props) {
+	const select = wp.data.select( 'core/block-editor' );
+	const selected = select.getBlockSelectionStart();
+	const inner = select.getBlock(props.clientId).innerBlocks;
+	for (let i = 0; i < inner.length; i++) {
+		if (inner[i].clientId === selected || inner[i].innerBlocks.length && hasSelectedInnerBlock(inner[i])) {
+			return true;
+		}
+	}
+	return false;
+};
