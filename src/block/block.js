@@ -85,16 +85,12 @@ registerBlockType( 'cgb/block-story-slider', {
 				navItems.push(navItem);
 			}
 			if (hasSelectedInnerBlock(props)) {
+				console.log(navItems);
 				wp.data.dispatch( 'core/block-editor' ).updateBlockAttributes( [parentBlockID], { slideNavTitles : navItems } );
 			}
-			//let selectedBlockID = wp.data.select('core/block-editor').getSelectedBlock(parentBlockID);
-			//
-			//return navItems;
 		}
+		buildNavArray();
 		console.info(props);
-
-
-		console.info(buildNavArray());
 
 		return (
 			<div className={ props.className }>
@@ -220,7 +216,7 @@ registerBlockType( 'cgb/block-story-slider-slide', {
 	},
 } );
 
-//function to chek if innerblocks have been changed
+//function to check if innerblocks have been changed
 function hasSelectedInnerBlock(props) {
 	const select = wp.data.select( 'core/block-editor' );
 	const selected = select.getBlockSelectionStart();
