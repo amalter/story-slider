@@ -114,15 +114,19 @@ registerBlockType( 'cgb/block-story-slider', {
 	 * @returns {Mixed} JSX Frontend HTML.
 	 */
 	save: ( props ) => {
-		// const {
-		// 	attributes: { slideNavTitles }
-		// } = props;
-		var attributes = props.attributes;
-		console.info(attributes);
+		const {
+			attributes: { slideNavTitles }
+		} = props;
+		console.info(slideNavTitles);
 		return (
 			<div className={ props.className }>
 				<div className="story-slider-nav">
 						Slider Navigation
+						<ul>
+						{slideNavTitles.map(title => {
+							return <li className="title">{title}</li>;
+						})}
+						</ul>	
 				</div>
 				<div className="story-slider">
 					<InnerBlocks.Content />
