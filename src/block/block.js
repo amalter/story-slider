@@ -54,11 +54,9 @@ registerBlockType( 'cgb/block-story-slider', {
 	],
 
 	/**
-	 * The edit function describes the structure of your block in the context of the editor.
-	 * This represents what the editor will render when the block is used.
-	 *
-	 * The "edit" property must be a valid function.
-	 *
+	 * 
+	 * Edit function for Parent Slider Block
+	 * 
 	 * @link https://wordpress.org/gutenberg/handbook/block-api/block-edit-save/
 	 *
 	 * @param {Object} props Props.
@@ -68,9 +66,10 @@ registerBlockType( 'cgb/block-story-slider', {
 	edit: ( props ) => {
 		//console.info(wp.data.select( 'core/block-editor' ).getBlocks()[0].innerBlocks[0].attributes.slideNavTitle);
 		const { 
-			attributes: { slideNavTitles }, 
+			attributes, 
 			setAttributes 
 		} = props;
+		const { slideNavTitles } = attributes;
 
 		const buildNavArray = () =>{
 			const parentBlockID = props.clientId;
@@ -85,13 +84,12 @@ registerBlockType( 'cgb/block-story-slider', {
 				navItems.push(navItem);
 			}
 			if (hasSelectedInnerBlock(props)) {
-				console.log(navItems);
-				wp.data.dispatch( 'core/block-editor' ).updateBlockAttributes( [parentBlockID], { slideNavTitles : navItems } );
+				//wp.data.dispatch( 'core/block-editor' ).updateBlockAttributes( [parentBlockID], { slideNavTitles : navItems } );				
+				const addTitle = ( newTitle ) => setAttributes( { slideNavTitles: newTitle } );
+				addTitle(navItems);
 			}
 		}
 		buildNavArray();
-		console.info(props);
-
 		return (
 			<div className={ props.className }>
 				<p>Story Slider Block</p>
@@ -107,10 +105,8 @@ registerBlockType( 'cgb/block-story-slider', {
 	},
 
 	/**
-	 * The save function defines the way in which the different attributes should be combined
-	 * into the final markup, which is then serialized by Gutenberg into post_content.
-	 *
-	 * The "save" property must be specified and must be a valid function.
+	 * 
+	 * Save function for Parent Slider Block
 	 *
 	 * @link https://wordpress.org/gutenberg/handbook/block-api/block-edit-save/
 	 *
@@ -118,6 +114,11 @@ registerBlockType( 'cgb/block-story-slider', {
 	 * @returns {Mixed} JSX Frontend HTML.
 	 */
 	save: ( props ) => {
+		// const {
+		// 	attributes: { slideNavTitles }
+		// } = props;
+		var attributes = props.attributes;
+		console.info(attributes);
 		return (
 			<div className={ props.className }>
 				<div className="story-slider-nav">
@@ -131,9 +132,9 @@ registerBlockType( 'cgb/block-story-slider', {
 	},
 } ); //end parent Slider Block
 
-/**
+/**********************************************************
  * Registering Child Innerblock for the Story Slider block
- */
+ **********************************************************/
 registerBlockType( 'cgb/block-story-slider-slide', {
 	// Block name. Block names must be string that contains a namespace prefix. Example: my-plugin/my-custom-block.
 	title: __( 'Story Slider Slide' ), // Block title.
@@ -153,10 +154,8 @@ registerBlockType( 'cgb/block-story-slider-slide', {
 	],
 
 	/**
-	 * The edit function describes the structure of your block in the context of the editor.
-	 * This represents what the editor will render when the block is used.
-	 *
-	 * The "edit" property must be a valid function.
+	 * 
+	 * Edit function for Child Slide Block
 	 *
 	 * @link https://wordpress.org/gutenberg/handbook/block-api/block-edit-save/
 	 *
@@ -191,11 +190,9 @@ registerBlockType( 'cgb/block-story-slider-slide', {
 	},
 
 	/**
-	 * The save function defines the way in which the different attributes should be combined
-	 * into the final markup, which is then serialized by Gutenberg into post_content.
 	 *
-	 * The "save" property must be specified and must be a valid function.
-	 *
+	 * Save function for Child Slide Block
+	 * 
 	 * @link https://wordpress.org/gutenberg/handbook/block-api/block-edit-save/
 	 *
 	 * @param {Object} props Props.
@@ -205,7 +202,6 @@ registerBlockType( 'cgb/block-story-slider-slide', {
 		const {
 			attributes: { slideNavTitle }
 		} = props;
-		//console.info(props);
 		return (
 			<div className="story-slider_slide">
 				
