@@ -88,3 +88,32 @@ function story_slider_cgb_block_assets() { // phpcs:ignore
 
 // Hook: Block assets.
 add_action( 'init', 'story_slider_cgb_block_assets' );
+
+
+/**
+	 * 
+	 *  Tiny Slider Assets 
+	 *
+	 */
+function tiny_slider_enqueue() {
+	//Enqueue Tiny Slider JS in frontend only
+	if( !is_admin() ) {
+
+		wp_enqueue_style(
+			'tiny-slider',
+			plugins_url('/assets/tiny-slider.css', dirname( __FILE__ ) )
+		);
+
+		wp_enqueue_script(
+			'tiny-slider',
+			plugins_url( '/assets/tiny-slider.js', dirname( __FILE__ ) )
+		);
+
+		wp_enqueue_script(
+			'simple-slider',
+			plugins_url( '/assets/story-slider.js', dirname( __FILE__ ) )
+		);
+
+	}//if frontend
+}
+add_action( 'enqueue_block_assets', 'tiny_slider_enqueue', 10 );
