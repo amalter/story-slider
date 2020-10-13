@@ -117,20 +117,3 @@ function tiny_slider_enqueue() {
 	}//if frontend
 }
 add_action( 'enqueue_block_assets', 'tiny_slider_enqueue', 10 );
-
-
-/**
-	 * 
-	 *  Font Awesome Assets 
-	 *
-	 */
-	function font_awesome_enqueue() {
-	
-			wp_register_script(
-				'font-awesome-story-slider',
-				'https://use.fontawesome.com/releases/v5.15.1/css/all.css'
-			);
-			wp_enqueue_script('font-awesome-story-slider');
-
-	}
-	add_action( 'enqueue_block_assets', 'font_awesome_enqueue', 10 );
