@@ -79,7 +79,7 @@ registerBlockType( 'cgb/block-story-slider-slide', {
 		return (
 			<div className="story-slider_slide">
 				
-				<p className="slide-nav-title"><RawHTML>{slideNavTitle}</RawHTML></p>
+				<div className="slide-nav-title"><RawHTML>{slideNavTitle}</RawHTML></div>
 					<InnerBlocks.Content />
 			</div>
 		);
