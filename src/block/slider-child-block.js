@@ -1,9 +1,9 @@
 import { InnerBlocks } from '@wordpress/block-editor';
+import { TextControl } from '@wordpress/components';
 
-const { RichText } = wp.blockEditor;
 const { __ } = wp.i18n; // Import __() from wp.i18n
 const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks
-
+const { RawHTML } = wp.element;
 
 /**********************************************************
  * Registering Child Innerblock for the Story Slider block
@@ -50,11 +50,12 @@ registerBlockType( 'cgb/block-story-slider-slide', {
 				<h2>Slide</h2>
 				<div class="slide-nav-title">
 				<label class="slide-nav-title_label ">Slide Navigation Title: </label>
-					<RichText 
+					<TextControl 
 						className={ "slide-nav-title_input" }
 						value={slideNavTitle}
 						onChange={onChangeNavTitle}
 						placeholder="Add slide navigation title"
+						type="text"
 					/>
 				</div>
 				<InnerBlocks />
@@ -78,7 +79,7 @@ registerBlockType( 'cgb/block-story-slider-slide', {
 		return (
 			<div className="story-slider_slide">
 				
-				<p className="slide-nav-title"><RichText.Content value={slideNavTitle} /></p>
+				<p className="slide-nav-title"><RawHTML>{slideNavTitle}</RawHTML></p>
 					<InnerBlocks.Content />
 			</div>
 		);

@@ -3,6 +3,7 @@ import { useSelect } from '@wordpress/data';
 
 const { __ } = wp.i18n; // Import __() from wp.i18n
 const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks
+const { RawHTML } = wp.element;
 const ALLOWED_BLOCKS = [ 'cgb/block-story-slider-slide' ];
 const TEMPLATE = [
 	[ 'cgb/block-story-slider-slide', { placeholder: 'Slide' } ],
@@ -108,12 +109,9 @@ registerBlockType( 'cgb/block-story-slider', {
 		return (
 			<div className={ props.className }>
 				<div className="story-slider-nav">
-						Slider Navigation
-						<ul>
 						{slideNavTitles.map(title => {
-							return <li className="title">{title}</li>;
+							return <div className="story-slider-nav_title"><RawHTML>{title}</RawHTML></div>;
 						})}
-						</ul>	
 				</div>
 				<div className="story-slider">
 					<InnerBlocks.Content />
