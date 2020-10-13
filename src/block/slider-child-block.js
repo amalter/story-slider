@@ -58,7 +58,10 @@ registerBlockType( 'cgb/block-story-slider-slide', {
 						type="text"
 					/>
 				</div>
-				<InnerBlocks />
+				<div class="slide-content">
+					<label class="slide-content-title_label ">Slide Content: </label>
+					<InnerBlocks />
+				</div>
 			</div>
 		);
 	},

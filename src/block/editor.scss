@@ -5,11 +5,38 @@
  * which makes it higher in priority.
  */
 
+ /*=======================
+ 
+ Styles for Parent Slider Block
+ 
+ =========================*/
 .wp-block-cgb-block-story-slider  {
-  background: $green;
+  background: $gray;
   border: 0.2rem solid $black;
   color: $black;
   margin: 0 auto;
   max-width: 740px;
   padding: 2rem;
-}
+}//parent slider block
+
+/*=======================
+ 
+ Styles for Child Slide Block
+ 
+ =========================*/
+.wp-block-cgb-block-story-slider-slide {
+
+  background: transparent;
+  border: 1px dotted $black;
+  color: $black;
+  margin: 0 auto;
+  padding: 2rem;
+
+ .slide-content{
+    .block-editor-inner-blocks{
+      background:$white;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+ }//slide-content
+}//child inner block

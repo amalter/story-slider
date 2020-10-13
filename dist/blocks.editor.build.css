@@ -10,10 +10,31 @@
  * CSS for just Backend enqueued after style.scss
  * which makes it higher in priority.
  */
+/*=======================
+ 
+ Styles for Parent Slider Block
+ 
+ =========================*/
 .wp-block-cgb-block-story-slider {
-  background: #bada55;
+  background: #dedede;
   border: 0.2rem solid #292929;
   color: #292929;
   margin: 0 auto;
   max-width: 740px;
   padding: 2rem; }
+
+/*=======================
+ 
+ Styles for Child Slide Block
+ 
+ =========================*/
+.wp-block-cgb-block-story-slider-slide {
+  background: transparent;
+  border: 1px dotted #292929;
+  color: #292929;
+  margin: 0 auto;
+  padding: 2rem; }
+  .wp-block-cgb-block-story-slider-slide .slide-content .block-editor-inner-blocks {
+    background: #f4f4f4;
+    margin: 0 auto;
+    padding: 2rem; }

@@ -80,7 +80,7 @@ registerBlockType( 'cgb/block-story-slider', {
 		buildNavArray();
 		return (
 			<div className={ props.className }>
-				<p>Story Slider Block</p>
+				<h3>Story Slider Block</h3>
 				<InnerBlocks
 					allowedBlocks={ ALLOWED_BLOCKS }
 					template={ TEMPLATE }
