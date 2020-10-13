@@ -10,9 +10,57 @@
  * CSS for both Frontend+Backend.
  */
 .wp-block-cgb-block-story-slider {
-  background: orangered;
-  border: 0.2rem solid #292929;
-  color: #292929;
-  margin: 0 auto;
-  max-width: 740px;
-  padding: 2rem; }
+  width: 100%;
+  background: #fff;
+  -webkit-box-shadow: 1px 1px 4px #d3d3d3;
+          box-shadow: 1px 1px 4px #d3d3d3; }
+  @media screen and (min-width: 859px) {
+    .wp-block-cgb-block-story-slider {
+      display: -ms-flexbox;
+      display: flex;
+      width: 100%;
+      margin: auto; } }
+  .wp-block-cgb-block-story-slider .story-slider-nav {
+    display: none; }
+    @media screen and (min-width: 859px) {
+      .wp-block-cgb-block-story-slider .story-slider-nav {
+        width: 200px;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: column;
+            flex-direction: column;
+        -ms-flex-pack: space-evenly;
+            justify-content: space-evenly;
+        border-right: 1px solid #d3d3d3; } }
+    .wp-block-cgb-block-story-slider .story-slider-nav_title {
+      color: gray;
+      padding: 20px; }
+      .wp-block-cgb-block-story-slider .story-slider-nav_title.tns-nav-active {
+        color: black;
+        border-left: solid 4px #f67814; }
+  .wp-block-cgb-block-story-slider .tns-outer {
+    width: auto; }
+    .wp-block-cgb-block-story-slider .tns-outer .tns-controls {
+      text-align: center;
+      background: #d3d3d3;
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-pack: justify;
+          justify-content: space-between; }
+      .wp-block-cgb-block-story-slider .tns-outer .tns-controls button {
+        border: #222 solid 1px;
+        background-color: transparent;
+        color: #222;
+        width: 50%; }
+  .wp-block-cgb-block-story-slider .story-slider {
+    min-height: 500px; }
+    .wp-block-cgb-block-story-slider .story-slider_slide {
+      height: 100%;
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-direction: column;
+          flex-direction: column;
+      -ms-flex-pack: center;
+          justify-content: center;
+      padding: 2em;
+      text-align: center; }

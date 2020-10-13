@@ -6,14 +6,22 @@
 window.onload = function() {
 	const sliders = document.querySelectorAll( '.story-slider' );
 	const sliderNav = document.querySelectorAll( '.story-slider-nav' );
+
 	sliders.forEach( function( slider, i ) {
 		const storySlider = tns( {
 			container: slider,
-			items: 1,
 			axis: "vertical",
+			items: 1,
             autoplay: false,
-            navContainer: sliderNav[i],
-            controls: false,
+			controls: true,
+			controlsPosition: "bottom",
+			autoHeight: true,
+			navContainer: sliderNav[i],
+			responsive:{
+				859:{
+					controls: false,
+				}
+			},
 		} );
 	} );
 };

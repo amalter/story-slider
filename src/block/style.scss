@@ -5,10 +5,60 @@
  */
 
 .wp-block-cgb-block-story-slider  {
-  background: $red;
-  border: 0.2rem solid $black;
-  color: $black;
-  margin: 0 auto;
-  max-width: 740px;
-  padding: 2rem;
+  width: 100%;
+  background: #fff;
+
+  @media screen and (min-width: 859px) {
+      display: flex;
+      width: 100%;
+      margin: auto;
+  }
+  box-shadow: 1px 1px 4px #d3d3d3;
+  .story-slider-nav{
+    display:none;
+    @media screen and (min-width: 859px) {
+      width: 200px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      border-right: 1px solid #d3d3d3;
+    }
+    &_title{
+      color: gray;
+      padding: 20px;
+      &.tns-nav-active{
+        color: black;
+        border-left: solid 4px #f67814;
+      }
+    }//title
+
+  }//story-slider-nav
+  .tns-outer {
+    width: auto;
+    .tns-controls{
+      text-align: center;
+      background: #d3d3d3;
+      display: flex;
+      justify-content: space-between;
+      button{
+        border: #222 solid 1px;
+        background-color: transparent;
+        color: #222;
+        width: 50%;
+      }
+    }
+  }
+  .story-slider{
+    min-height:500px;
+
+    &_slide{
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 2em;
+      text-align: center;
+    }
+  }//story-slider
+  
 }
