@@ -123,6 +123,11 @@ registerBlockType( 'cgb/block-story-slider', {
 
 //function to check if innerblocks have been changed
 function hasSelectedInnerBlock(props) {
+    //Known bugs: This function causes a bug where if input field is currently selected
+    // and user clicks "save," a message comes up asking if user wants to leave without saving
+    // also, when changing the text in the input field, the changes do not get saved to attribute
+    // unless another block or field is selected after change is made
+    // will need to re-write this to fix both of these bugs
 	const select = wp.data.select( 'core/block-editor' );
 	const selected = select.getBlockSelectionStart();
 	const inner = select.getBlock(props.clientId).innerBlocks;
