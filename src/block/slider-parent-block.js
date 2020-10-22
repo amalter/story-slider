@@ -58,9 +58,11 @@ registerBlockType( 'cgb/block-story-slider', {
 			setAttributes 
 		} = props;
 		const { slideNavTitles } = attributes;
-
+	
 		const buildNavArray = () =>{
+			//function gets child properties and adds to parent attributes
 			const parentBlockID = props.clientId;
+			const innerOfParentIsSelected = useSelect( ( select ) => select( 'core/block-editor' ).hasSelectedInnerBlock( parentBlockID, true ) );
 			const parentIndex = wp.data.select( 'core/block-editor' ).getBlockIndex(parentBlockID);
 			const { innerBlockCount } = useSelect(select => ({
 				innerBlockCount: select('core/block-editor').getBlockCount(parentBlockID)
@@ -68,16 +70,33 @@ registerBlockType( 'cgb/block-story-slider', {
 			let navItems = [];
 			
 			for (let block = 0; block < innerBlockCount; block++) {
+				let innerChild = wp.data.select( 'core/block-editor' ).getBlocks()[parentIndex].innerBlocks[block];
 				let navItem = wp.data.select( 'core/block-editor' ).getBlocks()[parentIndex].innerBlocks[block].attributes.slideNavTitle;
 				navItems.push(navItem);
 			}
-			if (hasSelectedInnerBlock(props)) {
+
+			if (innerOfParentIsSelected || hasSelectedInnerBlock(props)) {
 				//wp.data.dispatch( 'core/block-editor' ).updateBlockAttributes( [parentBlockID], { slideNavTitles : navItems } );				
 				const addTitle = ( newTitle ) => setAttributes( { slideNavTitles: newTitle } );
 				addTitle(navItems);
 			}
 		}
 		buildNavArray();
+		//function to check if innerblocks have been changed
+		function hasSelectedInnerBlock(props) {
+			//Known bugs: This function causes a bug where if input field is currently selected
+			// and user clicks "save," a message comes up asking if user wants to leave without saving
+			const select = wp.data.select( 'core/block-editor' );
+			const selected = select.getBlockSelectionStart();
+			const inner = select.getBlock(props.clientId).innerBlocks;
+			for (let i = 0; i < inner.length; i++) {
+				if (inner[i].clientId === selected || inner[i].innerBlocks.length && hasSelectedInnerBlock(inner[i])) {
+					return true;
+				}
+			}
+			return false;
+		};
+
 		return (
 			<div className={ props.className }>
 				<h3>Story Slider Block</h3>
@@ -105,7 +124,7 @@ registerBlockType( 'cgb/block-story-slider', {
 		const {
 			attributes: { slideNavTitles }
 		} = props;
-		console.info(slideNavTitles);
+		//console.info(slideNavTitles);
 		return (
 			<div className={ props.className }>
 				<div className="story-slider-nav">
@@ -120,21 +139,3 @@ registerBlockType( 'cgb/block-story-slider', {
 		);
 	},
 } ); //end parent Slider Block
-
-//function to check if innerblocks have been changed
-function hasSelectedInnerBlock(props) {
-    //Known bugs: This function causes a bug where if input field is currently selected
-    // and user clicks "save," a message comes up asking if user wants to leave without saving
-    // also, when changing the text in the input field, the changes do not get saved to attribute
-    // unless another block or field is selected after change is made
-    // will need to re-write this to fix both of these bugs
-	const select = wp.data.select( 'core/block-editor' );
-	const selected = select.getBlockSelectionStart();
-	const inner = select.getBlock(props.clientId).innerBlocks;
-	for (let i = 0; i < inner.length; i++) {
-		if (inner[i].clientId === selected || inner[i].innerBlocks.length && hasSelectedInnerBlock(inner[i])) {
-			return true;
-		}
-	}
-	return false;
-};
