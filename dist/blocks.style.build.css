@@ -24,13 +24,10 @@
     display: none; }
     @media screen and (min-width: 859px) {
       .wp-block-cgb-block-story-slider .story-slider-nav {
-        width: 200px;
         display: -ms-flexbox;
         display: flex;
         -ms-flex-direction: column;
             flex-direction: column;
-        -ms-flex-pack: space-evenly;
-            justify-content: space-evenly;
         border-right: 1px solid #d3d3d3; } }
     .wp-block-cgb-block-story-slider .story-slider-nav_title {
       color: gray;
