@@ -54,6 +54,8 @@
         width: 50%; }
   .wp-block-cgb-block-story-slider .story-slider {
     min-height: 500px; }
+    .wp-block-cgb-block-story-slider .story-slider.hide-title .slide-nav-title {
+      display: none; }
     .wp-block-cgb-block-story-slider .story-slider_slide {
       height: 100%;
       display: -ms-flexbox;

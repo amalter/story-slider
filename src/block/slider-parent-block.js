@@ -1,5 +1,6 @@
-import { InnerBlocks } from '@wordpress/block-editor';
+import { InnerBlocks, InspectorControls } from '@wordpress/block-editor';
 import { useSelect } from '@wordpress/data';
+import { CheckboxControl, Panel, PanelBody, PanelRow } from '@wordpress/components';
 
 const { __ } = wp.i18n; // Import __() from wp.i18n
 const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks
@@ -34,7 +35,11 @@ registerBlockType( 'cgb/block-story-slider', {
 		slideNavTitles: {
 			type: 'array',
 			default: []
-		}
+		},
+		checkboxField: {
+			type: 'boolean',
+			default: false,
+		},
 	},
 	keywords: [
 		__( 'Story Slider' ),
@@ -57,7 +62,11 @@ registerBlockType( 'cgb/block-story-slider', {
 			attributes, 
 			setAttributes 
 		} = props;
-		const { slideNavTitles } = attributes;
+		const { slideNavTitles, checkboxField } = attributes;
+
+		function onChangeCheckboxField( newValue ) {
+			setAttributes( { checkboxField: newValue } );
+		}
 	
 		const buildNavArray = () =>{
 			//function gets child properties and adds to parent attributes
@@ -99,6 +108,24 @@ registerBlockType( 'cgb/block-story-slider', {
 
 		return (
 			<div className={ props.className }>
+				{
+					<InspectorControls>
+						<Panel header="Slider Block Settings">
+						<PanelBody title="Display Settings">
+							<PanelRow>
+								<div className="story-slider_hide-title">
+									<CheckboxControl
+										label="Hide Slide Title"
+										help="Check to only display the slide title in the navigation"
+										checked={ checkboxField }
+										onChange={ onChangeCheckboxField }
+									/>
+								</div>
+							</PanelRow>
+							</PanelBody>
+						</Panel>
+					</InspectorControls>
+				}
 				<h3>Story Slider Block</h3>
 				<InnerBlocks
 					allowedBlocks={ ALLOWED_BLOCKS }
@@ -122,9 +149,13 @@ registerBlockType( 'cgb/block-story-slider', {
 	 */
 	save: ( props ) => {
 		const {
-			attributes: { slideNavTitles }
+			attributes: { slideNavTitles, checkboxField }
 		} = props;
-		//console.info(slideNavTitles);
+		//console.info(props);
+		var hideTitle = '';
+		if (checkboxField) {
+			hideTitle = ' hide-title';
+		}
 		return (
 			<div className={ props.className }>
 				<div className="story-slider-nav">
@@ -132,7 +163,7 @@ registerBlockType( 'cgb/block-story-slider', {
 							return <div className="story-slider-nav_title"><RawHTML>{title}</RawHTML></div>;
 						})}
 				</div>
-				<div className="story-slider">
+				<div className={"story-slider" + hideTitle}>
 					<InnerBlocks.Content />
 				</div>
 			</div>

@@ -50,7 +50,11 @@
   }
   .story-slider{
     min-height:500px;
-
+    &.hide-title{
+      .slide-nav-title{
+        display:none;
+      }
+    }
     &_slide{
       height: 100%;
       display: flex;
